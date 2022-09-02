@@ -40,4 +40,10 @@ public class CardDTOMapper {
         return cardSet.stream().map(this::tocardDTO).collect(Collectors.toSet());
     }
 
+    public  Set<Card> fromCardDTOSet(Set<CardDTO> cardDTOSet){
+        return cardDTOSet.stream().map(this::fromcardDTO).collect(Collectors.toSet());
+    }
+
+    public void fromCardDTOSet() {
+    }
 }

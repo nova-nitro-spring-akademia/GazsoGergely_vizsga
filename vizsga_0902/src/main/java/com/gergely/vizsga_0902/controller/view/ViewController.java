@@ -7,6 +7,7 @@ import com.gergely.vizsga_0902.controller.mapper.GyujtemenyDTOMapper;
 import com.gergely.vizsga_0902.service.Card;
 import com.gergely.vizsga_0902.service.CardService;
 import com.gergely.vizsga_0902.service.Gyujtemeny;
+import com.gergely.vizsga_0902.service.GyujtemenyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,10 +26,13 @@ public class ViewController {
 
     GyujtemenyDTOMapper gyujtemenyDTOMapper;
 
-    public ViewController(CardDTOMapper cardDTOMapper, CardService cardService, GyujtemenyDTOMapper gyujtemenyDTOMapper) {
+    GyujtemenyService gyujtemenyService;
+
+    public ViewController(CardDTOMapper cardDTOMapper, CardService cardService, GyujtemenyDTOMapper gyujtemenyDTOMapper, GyujtemenyService gyujtemenyService) {
         this.cardDTOMapper = cardDTOMapper;
         this.cardService = cardService;
         this.gyujtemenyDTOMapper = gyujtemenyDTOMapper;
+        this.gyujtemenyService = gyujtemenyService;
     }
 
     @GetMapping("/")
@@ -89,6 +93,10 @@ public class ViewController {
 
     @PostMapping("/savegyujtemeny")
     public String saveGyujtemeny(@ModelAttribute("gyujtemenyDTO") GyujtemenyDTO gyujtemenyDTO){
+
+        Gyujtemeny gyujtemeny = gyujtemenyDTOMapper.fromGyujtemenyDTO(gyujtemenyDTO);
+
+        Gyujtemeny savedGyujtemeny = gyujtemenyService.save(gyujtemeny);
 
         return "redirect:/";
     }

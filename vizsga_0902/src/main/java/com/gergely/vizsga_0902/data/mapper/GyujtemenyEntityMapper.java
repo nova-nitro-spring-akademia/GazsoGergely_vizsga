@@ -23,9 +23,21 @@ public class GyujtemenyEntityMapper {
         gyujtemenyEntity.setId(gyujtemeny.getId());
         gyujtemenyEntity.setName(gyujtemeny.getName());
 
-        Set<CardEntity> cardEntitySet = gyujtemeny.getCards().stream().map(cardEntityMapper::toCardEntity).collect(Collectors.toSet());
-        gyujtemenyEntity.setCards(cardEntitySet);
+//        Set<CardEntity> cardEntitySet = gyujtemeny.getCards().stream().map(cardEntityMapper::toCardEntity).collect(Collectors.toSet());
+//        gyujtemenyEntity.setCards(cardEntitySet);
         return gyujtemenyEntity;
     }
 
+    public Gyujtemeny fromGyujtemenyEntity(GyujtemenyEntity savedGyujtemenyEntity) {
+        Gyujtemeny gyujtemeny = new Gyujtemeny();
+        gyujtemeny.setId(savedGyujtemenyEntity.getId());
+        gyujtemeny.setName(savedGyujtemenyEntity.getName());
+
+//        Set<CardEntity> cardEntitySet = savedGyujtemenyEntity.getCards();
+//        Set<Card> cardSet = cardEntitySet.stream().map(cardEntityMapper::fromcardEntity).collect(Collectors.toSet());
+//
+//        gyujtemeny.setCards(cardSet);
+
+        return gyujtemeny;
+    }
 }

@@ -9,6 +9,20 @@ import org.springframework.stereotype.Component;
 @Component
 public class GyujtemenyDTOMapper {
 
+    CardDTOMapper cardDTOMapper;
+
+    public GyujtemenyDTOMapper(CardDTOMapper cardDTOMapper) {
+        this.cardDTOMapper = cardDTOMapper;
+    }
+
+    public Gyujtemeny fromGyujtemenyDTO(GyujtemenyDTO gyujtemenyDTO) {
+        Gyujtemeny gyujtemeny = new Gyujtemeny();
+        gyujtemeny.setId(gyujtemenyDTO.getId());
+        gyujtemeny.setName(gyujtemenyDTO.getName());
+//        gyujtemeny.setCards(cardDTOMapper.fromCardDTOSet(gyujtemenyDTO.getCards()));
+        return gyujtemeny;
+    }
+
 //    public Gyujtemeny toGyujtemeny(GyujtemenyDTO gyujtemenyDTO){
 //        Gyujtemeny gyujtemeny = new Gyujtemeny();
 //        gyujtemeny.setId(cardDTO.getId());
