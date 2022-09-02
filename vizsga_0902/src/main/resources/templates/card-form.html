@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>EMPLOYEE CREATE</h1>
+<br>
+<form action="#" th:action="@{/savecard}" th:object="${cardDTO}" method="POST">
+  <table border="2">
+    <tr>
+      <td><label>name</label></td>
+      <td><label>type</label></td>
+      <td><label>percent</label></td>
+      <td><label>purchase price</label></td>
+      <td><label>purchase year</label></td>
+      <td><label>issue price</label></td>
+      <td><label>issue year</label></td>
+    </tr>
+    <tr>
+      <td><input type="text" th:field="*{name}"></td>
+      <td><input type="text" th:field="*{type}"></td>
+      <td><input type="number" th:field="*{percent}"></td>
+      <td><input type="number" th:field="*{purchasePrice}"></td>
+      <td><input type="number" th:field="*{purchaseYear}"></td>
+      <td><input type="number" th:field="*{issuePrice}"></td>
+      <td><input type="number" th:field="*{issueYear}"></td>
+      <td><button type="submit">save</button></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
