@@ -8,9 +8,12 @@
 <table border="2">
   <tr>
     <td><label>Name</label></td>
+    <td><label>estimated value</label></td>
   </tr>
   <tr th:each="i : ${cardDTOSet}">
     <td><label type="text" th:text="${i.name}"></label></td>
+    <td><label th:text="${cardService.estimatedValue(i)}" type="number"></label></td>
+<!--    <td><label type="text" th:text="${instance.key.name}"></label><span th:if="${instance.value}"> (!)</span></td>-->
 <!--    <td><a th:href="@{'/showassignform/' + ${instance.key.id}}">Assign and raise salary</a></td>-->
   </tr>
 </table>

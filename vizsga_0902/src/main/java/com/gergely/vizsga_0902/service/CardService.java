@@ -1,5 +1,6 @@
 package com.gergely.vizsga_0902.service;
 
+import com.gergely.vizsga_0902.controller.CardDTO;
 import com.gergely.vizsga_0902.data.CardEntity;
 import com.gergely.vizsga_0902.data.CardEntityRepository;
 import com.gergely.vizsga_0902.data.mapper.CardEntityMapper;
@@ -48,9 +49,9 @@ public class CardService {
         return card;
     }
 
-    public int estimatedValue(Card card){
+    public int estimatedValue(CardDTO cardDTO){
 //        kártya becsült értéke = megjelenési évbeni érték * eltelt évek száma * 1,1;
-        int estVal = (int) Math.round(card.getIssuePrice() * (Calendar.getInstance().get(Calendar.YEAR) - card.getIssueYear()) * 1.1);
+        int estVal = (int) Math.round(cardDTO.getIssuePrice() * (Calendar.getInstance().get(Calendar.YEAR) - cardDTO.getIssueYear()) * 1.1);
         return estVal;
     }
 }
