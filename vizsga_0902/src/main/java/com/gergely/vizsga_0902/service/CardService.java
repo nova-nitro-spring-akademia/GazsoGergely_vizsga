@@ -5,6 +5,7 @@ import com.gergely.vizsga_0902.data.CardEntityRepository;
 import com.gergely.vizsga_0902.data.mapper.CardEntityMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -45,5 +46,11 @@ public class CardService {
         Card card = findById(id);
         cardEntityRepository.deleteById(id);
         return card;
+    }
+
+    public int estimatedValue(Card card){
+//        kártya becsült értéke = megjelenési évbeni érték * eltelt évek száma * 1,1;
+        int estVal = (int) Math.round(card.getIssuePrice() * (Calendar.getInstance().get(Calendar.YEAR) - card.getIssueYear()) * 1.1);
+        return estVal;
     }
 }

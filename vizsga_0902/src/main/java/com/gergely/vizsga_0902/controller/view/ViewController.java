@@ -48,6 +48,7 @@ public class ViewController {
         Set<CardDTO> cardDTOSet = cardDTOMapper.toCardDTOSet(cardService.findAll());
         model.addAttribute("cardDTOSet", cardDTOSet);
         return "card-list";
+
     }
 
 }
