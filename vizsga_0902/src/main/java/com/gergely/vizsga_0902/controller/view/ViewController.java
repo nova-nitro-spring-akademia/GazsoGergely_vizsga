@@ -1,9 +1,11 @@
 package com.gergely.vizsga_0902.controller.view;
 
 import com.gergely.vizsga_0902.controller.CardDTO;
+import com.gergely.vizsga_0902.controller.GyujtemenyDTO;
 import com.gergely.vizsga_0902.controller.mapper.CardDTOMapper;
 import com.gergely.vizsga_0902.service.Card;
 import com.gergely.vizsga_0902.service.CardService;
+import com.gergely.vizsga_0902.service.Gyujtemeny;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,5 +74,20 @@ public class ViewController {
         model.addAttribute("cardService", cardService);
         return "card-list";
     }
+
+    @GetMapping("/gyujtemenyform")
+    public String gyujtemenyForm(Model model){
+        GyujtemenyDTO gyujtemenyDTO = new GyujtemenyDTO();
+        model.addAttribute("gyujtemenyDTO", gyujtemenyDTO);
+        return "gyujtemeny-form";
+    }
+
+    @PostMapping("/savegyujtemeny")
+    public String saveGyujtemeny(@ModelAttribute("gyujtemenyDTO") GyujtemenyDTO gyujtemenyDTO){
+
+        return "redirect:/";
+    }
+
+
 
 }
