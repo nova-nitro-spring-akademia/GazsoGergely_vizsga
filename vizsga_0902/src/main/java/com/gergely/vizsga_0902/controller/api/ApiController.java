@@ -35,12 +35,25 @@ public class ApiController {
 
     }
 
-//    @GetMapping("/employees/{id}")
-//    public CardDTO getEmployee(@PathVariable Long id){
-//
-//
-//        Employee employee = employeeService.findById(id);
-//        return employeeDTOMapper.toEmployeeDTO(employee);
-//    }
+    @GetMapping("/cards/{id}")
+    public CardDTO getEmployee(@PathVariable Long id){
+        Card card = cardService.findById(id);
+        return cardDTOMapper.tocardDTO(card);
+    }
+
+    @PutMapping("/cards/{id}")
+    public CardDTO updateCard(@PathVariable Long id, @RequestBody CardDTO cardDTO){
+        Card card = cardService.findById(id);
+        //ezen a ponton tudjuk hogy létezik,így updateeljhetjuk
+
+        Card updatedCard = cardService.update(cardDTOMapper.fromcardDTO(cardDTO));
+        return cardDTOMapper.tocardDTO(updatedCard);
+    }
+
+    @DeleteMapping("/cards/{id}")
+    public CardDTO deleteCard(@PathVariable Long id){
+        Card deletedCard = cardService.deleteById(id);
+        return cardDTOMapper.tocardDTO(deletedCard);
+    }
 
 }

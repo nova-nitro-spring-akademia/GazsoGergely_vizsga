@@ -31,4 +31,19 @@ public class CardService {
         Set<Card> cardSet = cardEntityList.stream().map(cardEntityMapper::fromcardEntity).collect(Collectors.toSet());
         return cardSet;
     }
+
+    public Card findById(Long id){
+        CardEntity cardEntity = cardEntityRepository.findById(id).orElseThrow();
+        return cardEntityMapper.fromcardEntity(cardEntity);
+    }
+
+    public Card update(Card card) {
+        return save(card);
+    }
+
+    public Card deleteById(Long id) {
+        Card card = findById(id);
+        cardEntityRepository.deleteById(id);
+        return card;
+    }
 }
