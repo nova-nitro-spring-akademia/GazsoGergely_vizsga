@@ -23,7 +23,7 @@ public class ApiController {
     }
 
     @PostMapping("/cards")
-    public CardDTO savecard(@RequestBody CardDTO cardDTO){
+    public CardDTO savecard(@Valid @RequestBody CardDTO cardDTO){
         Card savedCard = cardService.save(cardDTOMapper.fromcardDTO(cardDTO));
         return cardDTOMapper.tocardDTO(savedCard);
     }
@@ -42,7 +42,7 @@ public class ApiController {
     }
 
     @PutMapping("/cards/{id}")
-    public CardDTO updateCard(@PathVariable Long id, @RequestBody CardDTO cardDTO){
+    public CardDTO updateCard(@PathVariable Long id, @Valid @RequestBody CardDTO cardDTO){
         Card card = cardService.findById(id);
         //ezen a ponton tudjuk hogy létezik,így updateeljhetjuk
 
