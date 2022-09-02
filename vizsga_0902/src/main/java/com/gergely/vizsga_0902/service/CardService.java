@@ -65,4 +65,10 @@ public class CardService {
         Set<Card> filteredCardSet = cardSet.stream().filter(c -> this.estimatedValue(c) > lowerBound).collect(Collectors.toSet());
         return filteredCardSet;
     }
+
+    public Set<Card> findAllWithLowerBound(int lowerBound){
+        Set<CardEntity> greaterValuedCards = cardEntityRepository.findGreaterValuedCards(lowerBound);
+        Set<Card> cardSet = greaterValuedCards.stream().map(cardEntityMapper::fromcardEntity).collect(Collectors.toSet());
+        return cardSet;
+    }
 }

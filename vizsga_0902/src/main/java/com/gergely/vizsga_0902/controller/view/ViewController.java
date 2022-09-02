@@ -3,6 +3,7 @@ package com.gergely.vizsga_0902.controller.view;
 import com.gergely.vizsga_0902.controller.CardDTO;
 import com.gergely.vizsga_0902.controller.GyujtemenyDTO;
 import com.gergely.vizsga_0902.controller.mapper.CardDTOMapper;
+import com.gergely.vizsga_0902.controller.mapper.GyujtemenyDTOMapper;
 import com.gergely.vizsga_0902.service.Card;
 import com.gergely.vizsga_0902.service.CardService;
 import com.gergely.vizsga_0902.service.Gyujtemeny;
@@ -22,9 +23,12 @@ public class ViewController {
 
     CardService cardService;
 
-    public ViewController(CardDTOMapper cardDTOMapper, CardService cardService) {
+    GyujtemenyDTOMapper gyujtemenyDTOMapper;
+
+    public ViewController(CardDTOMapper cardDTOMapper, CardService cardService, GyujtemenyDTOMapper gyujtemenyDTOMapper) {
         this.cardDTOMapper = cardDTOMapper;
         this.cardService = cardService;
+        this.gyujtemenyDTOMapper = gyujtemenyDTOMapper;
     }
 
     @GetMapping("/")
@@ -67,8 +71,9 @@ public class ViewController {
             Model model
     ){
         Set<Card> cardSet = cardService.findAll();
-        Set<Card> filteredCardSet = cardService.filterOutLowValuedCards(cardSet, lowerBound);
+//        Set<Card> filteredCardSet = cardService.filterOutLowValuedCards(cardSet, lowerBound);
 
+        Set<Card> filteredCardSet = cardService.findAllWithLowerBound(lowerBound);
         Set<CardDTO> cardDTOSet = cardDTOMapper.toCardDTOSet(filteredCardSet);
         model.addAttribute("cardDTOSet", cardDTOSet);
         model.addAttribute("cardService", cardService);
