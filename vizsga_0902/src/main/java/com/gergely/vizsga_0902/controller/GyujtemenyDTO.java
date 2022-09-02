@@ -2,6 +2,7 @@ package com.gergely.vizsga_0902.controller;
 
 import com.gergely.vizsga_0902.service.Card;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class GyujtemenyDTO {
@@ -34,5 +35,18 @@ public class GyujtemenyDTO {
 
     public void setCards(Set<CardDTO> cards) {
         this.cards = cards;
+    }
+
+    public void assignCardDTO(CardDTO cardDTO){
+        if (cards==null){
+            cards = new HashSet<CardDTO>();
+            cards.add(cardDTO);
+        }else{
+            cards.add(cardDTO);
+        }
+    }
+
+    public boolean containsCardDTO(CardDTO cardDTO){
+        return cards.contains(cardDTO);
     }
 }

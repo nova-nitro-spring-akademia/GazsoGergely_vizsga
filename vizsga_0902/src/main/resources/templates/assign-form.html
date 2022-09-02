@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>EMPLOYEE CREATE</h1>
+<br>
+<form action="#" th:action="@{/assigncardtogyujtemeny}" method="POST">
+  <table border="2">
+    <tr>
+      <td><label>Name</label></td>
+      <td><label>Choose Gyujtemeny!</label></td>
+    </tr>
+    <tr>
+      <td><input type="number" th:field="${cardDTO.id}" th:text="${cardDTO.name}"></td>
+      <td>
+
+
+        <select th:name="gyujtemeny_id">
+          <option th:each="i : ${gyujtemenyDTOSet}"
+                  th:text="${i.name}"
+                  th:name="gyujtemeny_id"
+                  th:value="${i.id}">
+          </option>
+        </select>
+
+
+      </td>
+      <td><button type="submit">save</button></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>

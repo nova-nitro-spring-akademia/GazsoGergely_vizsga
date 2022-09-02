@@ -1,6 +1,7 @@
 package com.gergely.vizsga_0902.data;
 
 import com.gergely.vizsga_0902.service.Card;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,7 +15,7 @@ public class GyujtemenyEntity {
 
     String name;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     Set<CardEntity> cards;
 
     public Long getId() {

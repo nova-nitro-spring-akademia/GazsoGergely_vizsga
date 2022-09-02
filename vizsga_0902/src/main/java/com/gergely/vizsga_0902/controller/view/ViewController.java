@@ -4,16 +4,14 @@ import com.gergely.vizsga_0902.controller.CardDTO;
 import com.gergely.vizsga_0902.controller.GyujtemenyDTO;
 import com.gergely.vizsga_0902.controller.mapper.CardDTOMapper;
 import com.gergely.vizsga_0902.controller.mapper.GyujtemenyDTOMapper;
+import com.gergely.vizsga_0902.data.GyujtemenyRepository;
 import com.gergely.vizsga_0902.service.Card;
 import com.gergely.vizsga_0902.service.CardService;
 import com.gergely.vizsga_0902.service.Gyujtemeny;
 import com.gergely.vizsga_0902.service.GyujtemenyService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -97,6 +95,72 @@ public class ViewController {
         Gyujtemeny gyujtemeny = gyujtemenyDTOMapper.fromGyujtemenyDTO(gyujtemenyDTO);
 
         Gyujtemeny savedGyujtemeny = gyujtemenyService.save(gyujtemeny);
+
+        return "redirect:/";
+    }
+
+
+    @GetMapping("/showassignform/{id}")
+    public String showAssignEmployeeToDepartmentForm(@PathVariable Long id, Model model){
+
+        Card card = cardService.findById(id);
+        CardDTO cardDTO = cardDTOMapper.tocardDTO(card);
+        model.addAttribute(cardDTO);
+
+        Set<Gyujtemeny> gyujtemenySet = gyujtemenyService.findAll();
+        Set<GyujtemenyDTO> gyujtemenyDTOSet = gyujtemenyDTOMapper.toGyujtemenyDTOSet(gyujtemenySet);
+
+        model.addAttribute("cardDTO", cardDTO);
+        model.addAttribute("gyujtemenyDTOSet", gyujtemenyDTOSet);
+
+        return  "assign-form";
+    }
+
+    @PostMapping("/assigncardtogyujtemeny")
+    public String assignCardToGyujtemeny(
+            @ModelAttribute("cardDTO") CardDTO cardDTO,
+            @RequestParam(value = "gyujtemeny_id") int gyujtemeny_id
+    ){
+
+        CardDTO cardDTOToAssign = cardDTOMapper.tocardDTO(cardService.findById(cardDTO.getId()));
+
+        GyujtemenyDTO gyujtemenyDTO = gyujtemenyDTOMapper.toGyujtemenyDTO(gyujtemenyService.finddById(gyujtemeny_id));
+
+        gyujtemenyDTO.assignCardDTO(cardDTOToAssign);
+
+        gyujtemenyService.saveWithCards(gyujtemenyDTOMapper.fromGyujtemenyDTOWithCards(gyujtemenyDTO));
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/showcarddetails/{id}")
+    public String showCardDetails(@PathVariable Long id, Model model){
+
+        Card card = cardService.findById(id);
+        CardDTO cardDTO = cardDTOMapper.tocardDTO(card);
+
+
+        Set<Gyujtemeny> gyujtemenySet = gyujtemenyService.findAllWithCards();
+        Set<GyujtemenyDTO> gyujtemenyDTOSet = gyujtemenyDTOMapper.toGyujtemenyDTOSetWithCards(gyujtemenySet);
+
+        model.addAttribute("cardDTO", cardDTO);
+        model.addAttribute("gyujtemenyDTOSet", gyujtemenyDTOSet);
+
+        return "card-details";
+    }
+
+    @PostMapping("/savecarddetails")
+    public String saveCardDetails(
+            @ModelAttribute("cardDTO") CardDTO cardDTO,
+            @RequestParam(value = "gyujtemeny_id") int gyujtemeny_id
+    ){
+
+        GyujtemenyDTO gyujtemenyDTO = gyujtemenyDTOMapper.toGyujtemenyDTO(gyujtemenyService.finddById(gyujtemeny_id));
+
+        gyujtemenyDTO.assignCardDTO(cardDTO);
+
+        Gyujtemeny gyujtemenyToSave = gyujtemenyDTOMapper.fromGyujtemenyDTOWithCards(gyujtemenyDTO);
+        gyujtemenyService.saveWithCards(gyujtemenyToSave);
 
         return "redirect:/";
     }
