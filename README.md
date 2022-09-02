@@ -1,0 +1,1 @@
+# GazsoGergely_vizsga
