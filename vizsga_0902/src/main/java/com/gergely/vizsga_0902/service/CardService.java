@@ -49,11 +49,18 @@ public class CardService {
         return card;
     }
 
+    //        kártya becsült értéke = megjelenési évbeni érték * eltelt évek száma * 1,1;
     public int estimatedValue(CardDTO cardDTO){
-//        kártya becsült értéke = megjelenési évbeni érték * eltelt évek száma * 1,1;
         int estVal = (int) Math.round(cardDTO.getIssuePrice() * (Calendar.getInstance().get(Calendar.YEAR) - cardDTO.getIssueYear()) * 1.1);
         return estVal;
     }
+
+
+//    becsült érték = megjelenési évbeni érték * eltelt évek száma * 1 + (1/100 * (100 - előfordulás)
+public int estimatedValueWithScarcity(Card card){
+    int estVal = (int) Math.round(card.getIssuePrice() * (Calendar.getInstance().get(Calendar.YEAR) - card.getIssueYear()) * 1 + (1/100 * (100 - card.getPercent())));
+    return estVal;
+}
 
     public int estimatedValue(Card card){
 //        kártya becsült értéke = megjelenési évbeni érték * eltelt évek száma * 1,1;
