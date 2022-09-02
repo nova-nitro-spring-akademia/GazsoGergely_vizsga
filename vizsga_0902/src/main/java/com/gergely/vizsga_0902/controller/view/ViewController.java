@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Set;
 
@@ -49,7 +50,27 @@ public class ViewController {
         model.addAttribute("cardDTOSet", cardDTOSet);
         model.addAttribute("cardService", cardService);
         return "card-list";
+    }
 
+    @GetMapping("/customcardlistform")
+    public String customCardListForm(Model model){
+        int lowerBound=0;
+        model.addAttribute("lowerBound", lowerBound);
+        return "custom-card-list-form";
+    }
+
+    @PostMapping("/showcustomcardlistform")
+    public String customCardList(
+            @RequestParam(value = "lowerBound") int lowerBound,
+            Model model
+    ){
+        Set<Card> cardSet = cardService.findAll();
+        Set<Card> filteredCardSet = cardService.filterOutLowValuedCards(cardSet, lowerBound);
+
+        Set<CardDTO> cardDTOSet = cardDTOMapper.toCardDTOSet(filteredCardSet);
+        model.addAttribute("cardDTOSet", cardDTOSet);
+        model.addAttribute("cardService", cardService);
+        return "card-list";
     }
 
 }

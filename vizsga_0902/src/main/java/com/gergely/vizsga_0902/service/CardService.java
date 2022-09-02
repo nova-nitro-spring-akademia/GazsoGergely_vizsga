@@ -54,4 +54,15 @@ public class CardService {
         int estVal = (int) Math.round(cardDTO.getIssuePrice() * (Calendar.getInstance().get(Calendar.YEAR) - cardDTO.getIssueYear()) * 1.1);
         return estVal;
     }
+
+    public int estimatedValue(Card card){
+//        kártya becsült értéke = megjelenési évbeni érték * eltelt évek száma * 1,1;
+        int estVal = (int) Math.round(card.getIssuePrice() * (Calendar.getInstance().get(Calendar.YEAR) - card.getIssueYear()) * 1.1);
+        return estVal;
+    }
+
+    public Set<Card> filterOutLowValuedCards(Set<Card> cardSet ,int lowerBound){
+        Set<Card> filteredCardSet = cardSet.stream().filter(c -> this.estimatedValue(c) > lowerBound).collect(Collectors.toSet());
+        return filteredCardSet;
+    }
 }

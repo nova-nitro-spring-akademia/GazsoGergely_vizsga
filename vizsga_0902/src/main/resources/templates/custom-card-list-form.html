@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h1>EMPLOYEE CREATE</h1>
+<br>
+<form action="#" th:action="@{/showcustomcardlistform}" method="POST">
+  <table border="2">
+    <tr>
+      <td><label>lower bound</label></td>
+    </tr>
+    <tr>
+      <td><input type="text" th:name="lowerBound"></td>
+      <td><button type="submit">save</button></td>
+    </tr>
+  </table>
+</form>
+</body>
+</html>
