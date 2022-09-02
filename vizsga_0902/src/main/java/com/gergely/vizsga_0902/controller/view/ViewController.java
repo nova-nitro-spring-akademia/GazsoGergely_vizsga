@@ -166,5 +166,20 @@ public class ViewController {
     }
 
 
+    @GetMapping("/estimatedvalueform/{id}")
+    public String estimatedValueForm(@PathVariable Long id, Model model){
+        model.addAttribute(id);
+        return "estimated-value-form";
+    }
+
+
+    @PostMapping("/showestimatedvalue")
+    public String showEstimatedValueForm(
+//            @ModelAttribute("id") Long id,
+            @RequestParam(value = "strategy") String strategy,
+            @RequestParam(value = "card_id") Long card_id)
+    {
+        return "estimated-value-form";
+    }
 
 }
